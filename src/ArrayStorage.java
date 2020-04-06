@@ -13,8 +13,7 @@ public class ArrayStorage {
     }
 
     void save(Resume resume) {
-        storage[size] = new Resume();
-        storage[size].uuid = resume.uuid;
+        storage[size] = resume;
         size++;
     }
 
@@ -31,7 +30,11 @@ public class ArrayStorage {
         for (int i = 0; i < size; i++) {
             if (storage[i].uuid.equals(uuid)) {
                 for (int j = i; j < size; j++) {
-                    storage[j] = storage[j + 1];
+                    if (j < 9999) {
+                        storage[j] = storage[j + 1];
+                    } else {
+                        storage[j] = null;
+                    }
                 }
                 size--;
                 break;
@@ -43,7 +46,7 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, size);
+        return Arrays.copyOf(storage, size);
     }
 
     int size() {
