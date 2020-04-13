@@ -60,6 +60,10 @@ public abstract class AbstractArrayStorage implements Storage {
         }
     }
 
+    public Resume[] getAll() {
+        return Arrays.copyOf(storage, size);
+    }
+
     public int size() {
         return size;
     }

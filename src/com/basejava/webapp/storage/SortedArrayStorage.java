@@ -12,10 +12,6 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         size++;
     }
 
-    public Resume[] getAll() {
-        return Arrays.copyOf(storage, size);
-    }
-
     protected int getIndex(String uuid) {
         Resume searchKey = new Resume();
         searchKey.setUuid(uuid);
