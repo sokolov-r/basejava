@@ -4,10 +4,7 @@ import com.basejava.webapp.model.Resume;
 
 import java.util.Arrays;
 
-/**
- * Array based storage for Resumes
- */
-public class ArrayStorage extends AbstractArrayStorage {
+public class SortedArrayStorage extends AbstractArrayStorage {
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -15,12 +12,14 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     public void save(Resume resume) {
+        int index = getIndex(resume.getUuid());
         if (size >= STORAGE_LIMIT) {
             System.out.println("Storage is full");
-        } else if (getIndex(resume.getUuid()) >= 0) {
+        } else if (index >= 0) {
             System.out.println("Resume " + resume.getUuid() + " is already in the storage");
         } else {
-            storage[size] = resume;
+            System.arraycopy(storage, -(index + 1), storage, -index, size + index + 1);
+            storage[-(index + 1)] = resume;
             size++;
         }
     }
@@ -30,11 +29,8 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     protected int getIndex(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                return i;
-            }
-        }
-        return -1;
+        Resume searchKey = new Resume();
+        searchKey.setUuid(uuid);
+        return Arrays.binarySearch(storage, 0, size, searchKey);
     }
 }
