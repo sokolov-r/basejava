@@ -23,6 +23,7 @@ public abstract class AbstractArrayStorage implements Storage {
             System.out.println("Resume " + resume.getUuid() + " is already in the storage");
         } else {
             save(resume, index);
+            size++;
         }
     }
 

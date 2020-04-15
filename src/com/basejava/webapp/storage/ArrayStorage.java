@@ -9,7 +9,6 @@ public class ArrayStorage extends AbstractArrayStorage {
 
     public void save(Resume resume, int index) {
         storage[size] = resume;
-        size++;
     }
 
     protected int getIndex(String uuid) {
