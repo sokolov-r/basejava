@@ -5,7 +5,7 @@ import com.basejava.webapp.model.Resume;
 import java.util.Arrays;
 
 public abstract class AbstractArrayStorage implements Storage {
-    protected static final int STORAGE_LIMIT = 10_000;
+    protected static final int STORAGE_LIMIT = 3;
 
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
@@ -29,7 +29,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public Resume get(String uuid) {
         int index = getIndex(uuid);
-        if (index == -1) {
+        if (index < 0) {
             System.out.println("Resume " + uuid + " is not in the storage");
             return null;
         }
@@ -48,13 +48,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public void delete(String uuid) {
         int index = getIndex(uuid);
         if (index >= 0) {
-            for (int j = index; j < size; j++) {
-                if (j < STORAGE_LIMIT - 1) {
-                    storage[j] = storage[j + 1];
-                } else {
-                    storage[j] = null;
-                }
-            }
+            delete(index);
             size--;
         } else {
             System.out.println("Resume " + uuid + " not in the storage");
@@ -72,4 +66,6 @@ public abstract class AbstractArrayStorage implements Storage {
     protected abstract int getIndex(String uuid);
 
     protected abstract void save(Resume resume, int index);
+
+    protected abstract void delete(int index);
 }
