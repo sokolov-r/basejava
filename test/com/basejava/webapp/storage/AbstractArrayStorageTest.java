@@ -1,19 +1,18 @@
 package com.basejava.webapp.storage;
 
-import com.basejava.webapp.exception.*;
+import com.basejava.webapp.exception.NotExistStorageException;
 import com.basejava.webapp.model.Resume;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class AbstractArrayStorageTest {
-    protected Storage storage;
-    protected Resume r1 = new Resume("1");
-    protected Resume r2 = new Resume("2");
-    protected Resume r4 = new Resume("4");
-    protected Resume r4New = new Resume("4");
-    protected Resume r5 = new Resume("5");
+public abstract class AbstractArrayStorageTest {
+    Storage storage;
+    Resume r1 = new Resume("1");
+    Resume r2 = new Resume("2");
+    Resume r4 = new Resume("4");
+    Resume r4New = new Resume("4");
+    Resume r5 = new Resume("5");
 
     public AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
@@ -27,10 +26,6 @@ public class AbstractArrayStorageTest {
         storage.save(r2);
     }
 
-    @After
-    public void tearDown() throws Exception {
-    }
-
     @Test
     public void clear() {
         storage.clear();
@@ -40,15 +35,15 @@ public class AbstractArrayStorageTest {
     @Test
     public void save() {
         storage.save(new Resume("3"));
-        while (storage.size() < 4) {
-            storage.save(new Resume());
-        }
-        try {
-            storage.save(new Resume());
-            Assert.fail("Overflow without exception");
-        } catch (StorageException e) {
-            Assert.assertEquals("Storage overflow", e.getMessage());
-        }
+//        while (storage.size() < 4) {
+//            storage.save(new Resume());
+//        }
+//        try {
+//            storage.save(new Resume());
+//            Assert.fail("Overflow without exception");
+//        } catch (StorageException e) {
+//            Assert.assertEquals("Storage overflow", e.getMessage());
+//        }
     }
 
     @Test

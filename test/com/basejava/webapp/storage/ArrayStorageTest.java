@@ -11,8 +11,10 @@ public class ArrayStorageTest extends AbstractArrayStorageTest {
 
     @Override
     public void save() {
+        int i = storage.size();
         super.save();
         Assert.assertEquals("3", storage.getAll()[3].getUuid());
+        Assert.assertEquals(i + 1, storage.size());
     }
 
     @Override
