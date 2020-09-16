@@ -1,6 +1,7 @@
 package com.basejava.webapp.storage;
 
 import com.basejava.webapp.exception.NotExistStorageException;
+import com.basejava.webapp.exception.StorageException;
 import com.basejava.webapp.model.Resume;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,7 +20,7 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         storage.clear();
         storage.save(r1);
         storage.save(r4);
@@ -35,20 +36,38 @@ public abstract class AbstractArrayStorageTest {
     @Test
     public void save() {
         storage.save(new Resume("3"));
-//        while (storage.size() < 4) {
-//            storage.save(new Resume());
-//        }
-//        try {
-//            storage.save(new Resume());
-//            Assert.fail("Overflow without exception");
-//        } catch (StorageException e) {
-//            Assert.assertEquals("Storage overflow", e.getMessage());
-//        }
+    }
+
+    @Test
+    public void saveWithStorageException() {
+        while (storage.size() < 10000) {
+            storage.save(new Resume());
+        }
+        try {
+            storage.save(new Resume());
+            Assert.fail("Overflow without exception");
+        } catch (StorageException e) {
+            Assert.assertEquals("Storage overflow", e.getMessage());
+        }
+    }
+
+    @Test
+    public void saveWithExistStorageException() {
+        try {
+            storage.save(new Resume("1"));
+            Assert.fail("save without exception");
+        } catch (StorageException e) {
+            Assert.assertEquals("Resume 1 already exist", e.getMessage());
+        }
     }
 
     @Test
     public void get() {
         Assert.assertEquals(r4, storage.get("4"));
+    }
+
+    @Test
+    public void getWithNotExistStorageException() {
         try {
             storage.get("0");
             Assert.fail("Continues without NotExistStorageException");
@@ -61,6 +80,10 @@ public abstract class AbstractArrayStorageTest {
     public void update() {
         storage.update(r4New);
         Assert.assertEquals(r4New, storage.get("4"));
+    }
+
+    @Test
+    public void updateWithNotExistStorageException() {
         try {
             storage.update(r5);
             Assert.fail("Continues without NotExistStorageException");
@@ -71,12 +94,17 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void delete() {
-        storage.delete("2");
+        storage.delete("1");
+        Assert.assertEquals("2", storage.getAll()[0].getUuid());
+    }
+
+    @Test
+    public void deleteWithNotExistStorageException() {
         try {
-            storage.delete("2");
+            storage.delete("6");
             Assert.fail("Continues without NotExistStorageException");
         } catch (NotExistStorageException e) {
-            Assert.assertEquals("Resume 2 not exist", e.getMessage());
+            Assert.assertEquals("Resume 6 not exist", e.getMessage());
         }
     }
 
