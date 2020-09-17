@@ -13,7 +13,7 @@ public abstract class AbstractArrayStorageTest {
     Resume r2 = new Resume("2");
     Resume r4 = new Resume("4");
     Resume r4New = new Resume("4");
-    Resume r5 = new Resume("5");
+    Resume r3 = new Resume("3");
 
     public AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
@@ -35,11 +35,13 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void save() {
-        storage.save(new Resume("3"));
+        int i = storage.size();
+        storage.save(r3);
+        Assert.assertEquals(i + 1, storage.size());
     }
 
     @Test
-    public void saveWithStorageException() {
+    public void shouldThrowWithStorageExceptionWhenSave() {
         while (storage.size() < 10000) {
             storage.save(new Resume());
         }
@@ -52,7 +54,7 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test
-    public void saveWithExistStorageException() {
+    public void shouldThrowWithExistStorageExceptionWhenSave() {
         try {
             storage.save(new Resume("1"));
             Assert.fail("save without exception");
@@ -67,7 +69,7 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test
-    public void getWithNotExistStorageException() {
+    public void shouldThrowWithNotExistStorageExceptionWhenGet() {
         try {
             storage.get("0");
             Assert.fail("Continues without NotExistStorageException");
@@ -83,23 +85,24 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test
-    public void updateWithNotExistStorageException() {
+    public void shouldThrowWithNotExistStorageExceptionWhenUpdate() {
         try {
-            storage.update(r5);
+            storage.update(r3);
             Assert.fail("Continues without NotExistStorageException");
         } catch (NotExistStorageException e) {
-            Assert.assertEquals("Resume 5 not exist", e.getMessage());
+            Assert.assertEquals("Resume 3 not exist", e.getMessage());
         }
     }
 
     @Test
     public void delete() {
         storage.delete("1");
-        Assert.assertEquals("2", storage.getAll()[0].getUuid());
+        Assert.assertEquals(r2, storage.getAll()[0]);
+        Assert.assertEquals(2, storage.size());
     }
 
     @Test
-    public void deleteWithNotExistStorageException() {
+    public void shouldThrowWithNotExistStorageExceptionWhenDelete() {
         try {
             storage.delete("6");
             Assert.fail("Continues without NotExistStorageException");
