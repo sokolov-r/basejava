@@ -10,12 +10,6 @@ public class SortedArrayStorageTest extends AbstractArrayStorageTest {
     }
 
     @Override
-    public void save() {
-        super.save();
-        Assert.assertEquals(r3, storage.getAll()[2]);
-    }
-
-    @Override
     public void getAll() {
         Resume[] arr = {r1, r2, r4};
         Assert.assertArrayEquals(arr, storage.getAll());
