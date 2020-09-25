@@ -57,7 +57,6 @@ public abstract class AbstractArrayStorageTest {
     @Test(expected = ExistStorageException.class)
     public void shouldThrowExistStorageExceptionWhenResumeExistWhileSave() {
         storage.save(new Resume("1"));
-        Assert.fail("save without exception");
     }
 
     @Test
@@ -68,7 +67,6 @@ public abstract class AbstractArrayStorageTest {
     @Test(expected = NotExistStorageException.class)
     public void shouldThrowNotExistStorageExceptionWhenResumeNotExistWhileGet() {
         storage.get("0");
-        Assert.fail("Continues without NotExistStorageException");
     }
 
     @Test
@@ -80,7 +78,6 @@ public abstract class AbstractArrayStorageTest {
     @Test(expected = NotExistStorageException.class)
     public void shouldThrowNotExistStorageExceptionWhenResumeNotExistWhileUpdate() {
         storage.update(r4);
-        Assert.fail("Continues without NotExistStorageException");
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -93,7 +90,6 @@ public abstract class AbstractArrayStorageTest {
     @Test(expected = NotExistStorageException.class)
     public void shouldThrowNotExistStorageExceptionWhenResumeNotExistWhileDelete() {
         storage.delete("6");
-        Assert.fail("Continues without NotExistStorageException");
     }
 
     @Test
