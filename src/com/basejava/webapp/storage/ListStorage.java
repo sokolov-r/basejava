@@ -1,13 +1,13 @@
 package com.basejava.webapp.storage;
 
-import com.basejava.webapp.exception.ExistStorageException;
 import com.basejava.webapp.model.Resume;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListStorage extends AbstractStorage {
 
-    protected ArrayList<Resume> storage = new ArrayList<>();
+    private List<Resume> storage = new ArrayList<>();
 
     @Override
     public void clear() {
@@ -35,26 +35,22 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void insertElementByIndex(Resume resume, int index) {
-        if (index >= 0) {
-            throw new ExistStorageException(resume.getUuid());
-        } else {
-            storage.add(index, resume);
-        }
+    protected void insertElement(Resume resume, int index) {
+        storage.add(index, resume);
     }
 
     @Override
-    protected Resume getResumeByIndex(int index) {
+    protected Resume takeResume(int index) {
         return storage.get(index);
     }
 
     @Override
-    protected void setResumeByIndex(Resume resume, int index) {
+    protected void putResume(Resume resume, int index) {
         storage.set(index, resume);
     }
 
     @Override
-    protected void deleteElementByIndex(int index) {
+    protected void deleteElement(int index) {
         storage.remove(index);
     }
 }
