@@ -1,22 +1,13 @@
 package com.basejava.webapp.storage;
 
-import com.basejava.webapp.exception.ExistStorageException;
 import com.basejava.webapp.exception.NotExistStorageException;
-import com.basejava.webapp.exception.StorageException;
 import com.basejava.webapp.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
-    protected static final int STORAGE_LIMIT = 10_000;
 
     public void save(Resume resume) {
         int index = getIndex(resume.getUuid());
-        if (size() >= STORAGE_LIMIT) {
-            throw new StorageException("Storage overflow", resume.getUuid());
-        } else if (index >= 0) {
-            throw new ExistStorageException(resume.getUuid());
-        } else {
-            insertElementByIndex(resume, index);
-        }
+        insertElementByIndex(resume, index);
     }
 
     public Resume get(String uuid) {
