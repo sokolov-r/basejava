@@ -1,14 +1,13 @@
 package com.basejava.webapp.storage;
 
-import com.basejava.webapp.exception.ExistStorageException;
-import com.basejava.webapp.exception.NotExistStorageException;
 import com.basejava.webapp.model.Resume;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class MapStorage extends AbstractStorage {
 
-    protected HashMap<String, Resume> storage = new HashMap<>();
+    private Map<String, Resume> storage = new HashMap<>();
 
     @Override
     public void clear() {
@@ -26,65 +25,27 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public void save(Resume resume) {
-        String uuid = resume.getUuid();
-        Resume resumeInStorage = storage.get(uuid);
-        if (resumeInStorage != null) {
-            throw new ExistStorageException(uuid);
-        } else {
-            storage.put(uuid, resume);
-        }
+    protected Object getKey(String uuid) {
+        return storage.get(uuid);
     }
 
     @Override
-    public Resume get(String uuid) {
-        Resume resumeInStorage = storage.get(uuid);
-        if (resumeInStorage == null) {
-            throw new NotExistStorageException(uuid);
-        }
-        return resumeInStorage;
+    protected void saveResume(Resume resume, Object searchKey) {
+        storage.put(resume.getUuid(), resume);
     }
 
     @Override
-    public void update(Resume resume) {
-        String uuid = resume.getUuid();
-        Resume resumeInStorage = storage.get(uuid);
-        if (resumeInStorage != null) {
-            storage.put(uuid, resume);
-        } else {
-            throw new NotExistStorageException(resume.getUuid());
-        }
+    protected Resume getResume(Object searchKey) {
+        return storage.get((String) searchKey);
     }
 
     @Override
-    public void delete(String uuid) {
-        Resume resumeInStorage = storage.get(uuid);
-        if (resumeInStorage != null) {
-            storage.remove(uuid);
-        } else {
-            throw new NotExistStorageException(uuid);
-        }
+    protected void updateResume(Resume resume, Object searchKey) {
+        storage.put(resume.getUuid(), resume);
     }
 
     @Override
-    protected int getIndex(String uuid) {
-        return 0;
-    }
-
-    @Override
-    protected void saveResume(Resume resume, int index) {
-    }
-
-    @Override
-    protected Resume getResume(int index) {
-        return storage.get(index);
-    }
-
-    @Override
-    protected void updateResume(Resume resume, int index) {
-    }
-
-    @Override
-    protected void deleteResume(int index) {
+    protected void deleteResume(Object searchKey) {
+        storage.remove((String) searchKey);
     }
 }

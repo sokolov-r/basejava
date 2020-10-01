@@ -7,47 +7,49 @@ import com.basejava.webapp.model.Resume;
 public abstract class AbstractStorage implements Storage {
 
     public void save(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index >= 0) {
-            throw new ExistStorageException(resume.getUuid());
+        String uuid = resume.getUuid();
+        Object searchKey = getKey(uuid);
+        if (searchKey != null) {
+            throw new ExistStorageException(uuid);
         } else {
-            saveResume(resume, index);
+            saveResume(resume, searchKey);
         }
     }
 
     public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        if (index < 0) {
+        Object searchKey = getKey(uuid);
+        if (searchKey == null) {
             throw new NotExistStorageException(uuid);
         }
-        return getResume(index);
+        return getResume(searchKey);
     }
 
     public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index >= 0) {
-            updateResume(resume, index);
+        String uuid = resume.getUuid();
+        Object searchKey = getKey(uuid);
+        if (searchKey != null) {
+            updateResume(resume, searchKey);
         } else {
-            throw new NotExistStorageException(resume.getUuid());
+            throw new NotExistStorageException(uuid);
         }
     }
 
     public void delete(String uuid) {
-        int index = getIndex(uuid);
-        if (index >= 0) {
-            deleteResume(index);
+        Object searchKey = getKey(uuid);
+        if (searchKey != null) {
+            deleteResume(searchKey);
         } else {
             throw new NotExistStorageException(uuid);
         }
     }
 
-    protected abstract int getIndex(String uuid);
+    protected abstract Object getKey(String uuid);
 
-    protected abstract void saveResume(Resume resume, int index);
+    protected abstract void saveResume(Resume resume, Object searchKey);
 
-    protected abstract Resume getResume(int index);
+    protected abstract Resume getResume(Object searchKey);
 
-    protected abstract void updateResume(Resume resume, int index);
+    protected abstract void updateResume(Resume resume, Object searchKey);
 
-    protected abstract void deleteResume(int index);
+    protected abstract void deleteResume(Object searchKey);
 }
