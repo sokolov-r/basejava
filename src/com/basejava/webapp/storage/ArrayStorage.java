@@ -8,18 +8,18 @@ import com.basejava.webapp.model.Resume;
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
-    public void insert(Resume resume, Object searchKey) {
+    public void insert(Resume resume, int searchKey) {
         storage[size] = resume;
     }
 
     @Override
-    protected Object getKey(String uuid) {
+    protected Integer getSearchKey(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 return i;
             }
         }
-        return null;
+        return -1;
     }
 
     @Override
