@@ -2,12 +2,14 @@ package com.basejava.webapp.storage;
 
 import com.basejava.webapp.model.Resume;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class MapStorage extends AbstractStorage {
+public class MapUuidStorage extends AbstractStorage {
 
-    private Map<String, Resume> storage = new HashMap<>();
+    protected final Map<String, Resume> storage = new HashMap<>();
 
     @Override
     public void clear() {
@@ -15,8 +17,10 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return storage.values().toArray(new Resume[0]);
+    public List<Resume> getAllSorted() {
+        List<Resume> list = new ArrayList<>(storage.values());
+        list.sort(RESUME_FULLNAME_COMPARATOR);
+        return list;
     }
 
     @Override
@@ -26,15 +30,12 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected Object getSearchKey(String uuid) {
-        if (storage.containsKey(uuid)) {
-            return uuid;
-        }
-        return null;
+        return uuid;
     }
 
     @Override
     protected boolean isExist(Object searchKey) {
-        return searchKey != null;
+        return storage.containsKey(searchKey);
     }
 
     @Override
