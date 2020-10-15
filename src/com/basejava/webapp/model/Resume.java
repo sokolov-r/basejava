@@ -1,5 +1,7 @@
 package com.basejava.webapp.model;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -11,6 +13,8 @@ public class Resume {
     // Unique identifier
     private final String uuid;
     private final String fullName;
+    private final Map<ContactType, String> contacts = new HashMap<>();
+    private final Map<SectionType, Section> sections = new HashMap<>();
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -31,9 +35,17 @@ public class Resume {
         return fullName;
     }
 
+    public Map<ContactType, String> getContacts() {
+        return contacts;
+    }
+
+    public Map<SectionType, Section> getSections() {
+        return sections;
+    }
+
     @Override
     public String toString() {
-        return uuid + " " + fullName;
+        return uuid + "(" + fullName + ")";
     }
 
     @Override
@@ -41,7 +53,7 @@ public class Resume {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Resume resume = (Resume) o;
-        return (Objects.equals(uuid, resume.uuid) & Objects.equals(fullName, resume.fullName));
+        return (Objects.equals(uuid, resume.uuid) && Objects.equals(fullName, resume.fullName));
     }
 
     @Override

@@ -11,12 +11,12 @@ public class MapResumeStorage extends MapUuidStorage {
 
     @Override
     protected boolean isExist(Object searchKey) {
-        return storage.containsValue(searchKey);
+        return searchKey != null;
     }
 
     @Override
     protected Resume doGet(Object searchKey) {
-        return storage.get(((Resume) searchKey).getUuid());
+        return (Resume) searchKey;
     }
 
     @Override
