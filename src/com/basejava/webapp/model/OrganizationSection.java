@@ -17,11 +17,12 @@ public class OrganizationSection implements Section {
 
     @Override
     public String toString() {
-        String result = "" ;
+        StringBuilder sb = new StringBuilder();
         for (Organization organization : organizationList) {
-            result = result + organization.toString() + "\n" ;
+            sb.append(organization.toString());
+            sb.append("\n");
         }
-        return result;
+        return sb.toString();
     }
 
     @Override
@@ -29,7 +30,7 @@ public class OrganizationSection implements Section {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrganizationSection that = (OrganizationSection) o;
-        return Objects.equals(organizationList, that.organizationList);
+        return organizationList.equals(that.organizationList);
     }
 
     @Override

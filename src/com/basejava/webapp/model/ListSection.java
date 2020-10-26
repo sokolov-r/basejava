@@ -17,11 +17,12 @@ public class ListSection implements Section {
 
     @Override
     public String toString() {
-        String result = "" ;
+        StringBuilder sb = new StringBuilder();
         for (String text : textList) {
-            result = result + text + "\n\n" ;
+            sb.append(text);
+            sb.append("\n\n") ;
         }
-        return result;
+        return sb.toString();
     }
 
     @Override
@@ -29,7 +30,7 @@ public class ListSection implements Section {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ListSection that = (ListSection) o;
-        return Objects.equals(textList, that.textList);
+        return textList.equals(that.textList);
     }
 
     @Override

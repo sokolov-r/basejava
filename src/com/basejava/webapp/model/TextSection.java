@@ -24,7 +24,7 @@ public class TextSection implements Section {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TextSection that = (TextSection) o;
-        return Objects.equals(text, that.text);
+        return text.equals(that.text);
     }
 
     @Override
