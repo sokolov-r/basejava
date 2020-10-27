@@ -25,14 +25,22 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     public void clear() {
-        for (File file : directory.listFiles()) {
-            file.delete();
+        try {
+            for (File file : directory.listFiles()) {
+                doDelete(file);
+            }
+        } catch (NullPointerException e) {
+            throw new StorageException("directory is empty", directory.getName());
         }
     }
 
     @Override
     public int size() {
-        return directory.list().length;
+        try {
+            return directory.list().length;
+        } catch (NullPointerException e) {
+            throw new StorageException("directory is empty", directory.getName());
+        }
     }
 
     @Override
@@ -49,37 +57,50 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     protected void doSave(Resume resume, File file) {
         try {
             file.createNewFile();
+        } catch (IOException e) {
+            throw new StorageException("IO error", file.getName(), e);
+        }
+        doUpdate(resume, file);
+    }
+
+    protected abstract void doWrite(Resume resume, File file) throws IOException;
+
+    @Override
+    protected Resume doGet(File file) {
+        try {
+            return doRead(file);
+        } catch (IOException e) {
+            throw new StorageException("IO error", file.getName(), e);
+        }
+    }
+
+    protected abstract Resume doRead(File file) throws IOException;
+
+    @Override
+    protected void doUpdate(Resume resume, File file) {
+        try {
             doWrite(resume, file);
         } catch (IOException e) {
             throw new StorageException("IO error", file.getName(), e);
         }
-
-    }
-
-    protected abstract void doWrite(Resume resume, File file);
-
-    @Override
-    protected Resume doGet(File file) {
-        return doRead(file);
-    }
-
-    protected abstract Resume doRead(File file);
-
-    @Override
-    protected void doUpdate(Resume resume, File file) {
-        doWrite(resume, file);
     }
 
     @Override
     protected void doDelete(File file) {
-        file.delete();
+        if (!file.delete()) {
+            throw new StorageException("file not deleted", file.getName());
+        }
     }
 
     @Override
     protected List<Resume> getList() {
         List<Resume> resumes = new ArrayList<>();
-        for (File file : directory.listFiles()) {
-            resumes.add(doRead(file));
+        try {
+            for (File file : directory.listFiles()) {
+                resumes.add(doGet(file));
+            }
+        } catch (NullPointerException e) {
+            throw new StorageException("directory is empty", directory.getName());
         }
         return resumes;
     }
