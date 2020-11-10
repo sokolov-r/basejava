@@ -1,9 +1,11 @@
 package com.basejava.webapp.model;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public class ListSection implements Section {
+public class ListSection implements Section, Serializable {
+    private static final long serialVersionUID = 1L;
     private final List<String> textList;
 
     public ListSection(List<String> textList) {
@@ -20,7 +22,7 @@ public class ListSection implements Section {
         StringBuilder sb = new StringBuilder();
         for (String text : textList) {
             sb.append(text);
-            sb.append("\n\n") ;
+            sb.append("\n\n");
         }
         return sb.toString();
     }

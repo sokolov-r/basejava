@@ -69,7 +69,7 @@ public class ResumeTestData {
         OrganizationSection experience = new OrganizationSection(new ArrayList<>(Arrays.asList(
                 new Organization("Java Online Projects", "http://javaops.ru/",
                         new ArrayList<>(Arrays.asList(
-                                new Position(
+                                new Organization.Position(
                                         LocalDate.of(2013, 10, 1),
                                         LocalDate.now(),
                                         "Автор проекта.",
@@ -77,7 +77,7 @@ public class ResumeTestData {
                                                 " стажировок.")))),
                 new Organization("Wrike", "https://www.wrike.com/",
                         new ArrayList<>(Arrays.asList(
-                                new Position(
+                                new Organization.Position(
                                         LocalDate.of(2014, 10, 1),
                                         LocalDate.of(2016, 1, 1),
                                         "Старший разработчик (backend)",
@@ -87,7 +87,7 @@ public class ResumeTestData {
                                                 "аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.")))),
                 new Organization("RIT Center", null,
                         new ArrayList<>(Arrays.asList(
-                                new Position(
+                                new Organization.Position(
                                         LocalDate.of(2012, 4, 1),
                                         LocalDate.of(2014, 10, 1),
                                         "Java архитектор",
@@ -105,7 +105,7 @@ public class ResumeTestData {
                                                 "scripting via ssh tunnels, PL/Python")))),
                 new Organization("Luxoft (Deutsche Bank)", "http://www.luxoft.ru/",
                         new ArrayList<>(Arrays.asList(
-                                new Position(
+                                new Organization.Position(
                                         LocalDate.of(2010, 12, 1),
                                         LocalDate.of(2012, 4, 1),
                                         "Ведущий программист",
@@ -117,7 +117,7 @@ public class ResumeTestData {
                                                 "ExtGWT (GXT),\nHighstock, Commet, HTML5.")))),
                 new Organization("Yota", "https://www.yota.ru/",
                         new ArrayList<>(Arrays.asList(
-                                new Position(
+                                new Organization.Position(
                                         LocalDate.of(2008, 6, 1),
                                         LocalDate.of(2010, 12, 1),
                                         "Ведущий специалист",
@@ -128,7 +128,7 @@ public class ResumeTestData {
                                                 "Разработка online JMX клиента (Python/ Jython, Django, ExtJS)")))),
                 new Organization("Enkata", "http://enkata.com/",
                         new ArrayList<>(Arrays.asList(
-                                new Position(
+                                new Organization.Position(
                                         LocalDate.of(2007, 3, 1),
                                         LocalDate.of(2008, 6, 1),
                                         "Разработчик ПО",
@@ -137,7 +137,7 @@ public class ResumeTestData {
                                                 " (OLAP, Data mining).")))),
                 new Organization("Siemens AG", "https://www.siemens.com/ru/ru/home.html",
                         new ArrayList<>(Arrays.asList(
-                                new Position(
+                                new Organization.Position(
                                         LocalDate.of(2005, 1, 1),
                                         LocalDate.of(2007, 2, 1),
                                         "Разработчик ПО",
@@ -146,7 +146,7 @@ public class ResumeTestData {
                                                 "@vantage (Java, Unix).")))),
                 new Organization("Alcatel", "http://www.alcatel.ru/",
                         new ArrayList<>(Arrays.asList(
-                                new Position(
+                                new Organization.Position(
                                         LocalDate.of(1997, 9, 1),
                                         LocalDate.of(2005, 1, 1),
                                         "Инженер по аппаратному и программному тестированию",
@@ -157,7 +157,7 @@ public class ResumeTestData {
         OrganizationSection education = new OrganizationSection(new ArrayList<>(Arrays.asList(
                 new Organization("Coursera", "https://www.coursera.org/course/progfun",
                         new ArrayList<>(Arrays.asList(
-                                new Position(
+                                new Organization.Position(
                                         LocalDate.of(2013, 3, 1),
                                         LocalDate.of(2013, 5, 1),
                                         "\"Functional Programming Principles in Scala\" by Martin Odersky",
@@ -165,7 +165,7 @@ public class ResumeTestData {
                 new Organization("Luxoft", "http://www.luxoft-training.ru/training/catalog/course." +
                         "html?ID=22366",
                         new ArrayList<>(Arrays.asList(
-                                new Position(
+                                new Organization.Position(
                                         LocalDate.of(2011, 3, 1),
                                         LocalDate.of(2011, 4, 1),
                                         "Курс \"Объектно-ориентированный анализ ИС. Концептуальное " +
@@ -173,14 +173,14 @@ public class ResumeTestData {
                                         "")))),
                 new Organization("Siemens AG", "http://www.siemens.ru/",
                         new ArrayList<>(Arrays.asList(
-                                new Position(
+                                new Organization.Position(
                                         LocalDate.of(2005, 1, 1),
                                         LocalDate.of(2005, 4, 1),
                                         "3 месяца обучения мобильным IN сетям (Берлин)",
                                         "")))),
                 new Organization("Alcatel", "http://www.alcatel.ru/",
                         new ArrayList<>(Arrays.asList(
-                                new Position(
+                                new Organization.Position(
                                         LocalDate.of(1997, 9, 1),
                                         LocalDate.of(1998, 3, 1),
                                         "6 месяцев обучения цифровым телефонным сетям (Москва)",
@@ -188,19 +188,19 @@ public class ResumeTestData {
                 new Organization("Санкт-Петербургский национальный исследовательский университет\n" +
                         "информационных технологий, механики и оптики", "http://www.ifmo.ru/",
                         new ArrayList<>(Arrays.asList(
-                                new Position(
+                                new Organization.Position(
                                         LocalDate.of(1993, 9, 1),
                                         LocalDate.of(1996, 7, 1),
                                         "Аспирантура (программист С, С++)",
                                         ""),
-                                new Position(
+                                new Organization.Position(
                                         LocalDate.of(1987, 9, 1),
                                         LocalDate.of(1993, 7, 1),
                                         "Инженер (программист Fortran, C)",
                                         "")))),
                 new Organization("Заочная физико-техническая школа при МФТИ", "http://www.school.mipt.ru/",
                         new ArrayList<>(Arrays.asList(
-                                new Position(
+                                new Organization.Position(
                                         LocalDate.of(1984, 9, 1),
                                         LocalDate.of(1987, 6, 1),
                                         "Закончил с отличием",
