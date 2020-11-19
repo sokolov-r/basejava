@@ -19,6 +19,18 @@ public class Organization implements Serializable {
         this.positionList = positionList;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public List<Position> getPositionList() {
+        return positionList;
+    }
+
     @Override
     public String toString() {
         return "Organization{" +
@@ -58,6 +70,22 @@ public class Organization implements Serializable {
             this.finishDate = finishDate;
             this.jobTitle = jobTitle;
             this.jobDescription = jobDescription;
+        }
+
+        public LocalDate getStartDate() {
+            return startDate;
+        }
+
+        public LocalDate getFinishDate() {
+            return finishDate;
+        }
+
+        public String getJobTitle() {
+            return jobTitle;
+        }
+
+        public String getJobDescription() {
+            return jobDescription;
         }
 
         @Override

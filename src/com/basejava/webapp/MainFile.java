@@ -3,26 +3,21 @@ package com.basejava.webapp;
 import java.io.File;
 
 public class MainFile {
-    static int i = 1;
-    static String n = "  ";
 
     public static void main(String[] args) {
-        outputFileList(new File("."));
+        outputFileList(new File("."), "  ");
     }
 
-    public static void outputFileList(File dir) {
-        File[] list = dir.listFiles();
-        if (list != null) {
-            for (File file : list) {
-                i++;
-                for (int j = 0; j < i; j++) {
-                    System.out.print(n);
+    public static void outputFileList(File dir, String offset) {
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    System.out.println(offset + file.getName());
+                } else if (file.isDirectory()) {
+                    System.out.println(offset + file.getName());
+                    outputFileList(file, offset + "  ");
                 }
-                System.out.println(file.getName());
-                if (file.isDirectory()) {
-                    outputFileList(file);
-                }
-                i--;
             }
         }
     }

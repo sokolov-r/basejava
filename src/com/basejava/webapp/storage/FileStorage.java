@@ -2,6 +2,7 @@ package com.basejava.webapp.storage;
 
 import com.basejava.webapp.exception.StorageException;
 import com.basejava.webapp.model.Resume;
+import com.basejava.webapp.storage.serializer.SerializeStrategy;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -27,16 +28,14 @@ public class FileStorage extends AbstractStorage<File> {
 
     @Override
     public void clear() {
-        File[] files = getFilesList();
-        for (File file : files) {
+        for (File file : getFilesList()) {
             doDelete(file);
         }
     }
 
     @Override
     public int size() {
-        File[] files = getFilesList();
-        return files.length;
+        return getFilesList().length;
     }
 
     @Override
@@ -86,9 +85,8 @@ public class FileStorage extends AbstractStorage<File> {
 
     @Override
     protected List<Resume> getList() {
-        File[] files = getFilesList();
-        List<Resume> resumes = new ArrayList<>(files.length);
-        for (File file : files) {
+        List<Resume> resumes = new ArrayList<>();
+        for (File file : getFilesList()) {
             resumes.add(doGet(file));
         }
         return resumes;

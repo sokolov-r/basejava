@@ -41,6 +41,14 @@ public class Resume implements Serializable {
         return sections;
     }
 
+    public void addContact(ContactType contactType, String contact) {
+        this.contacts.put(contactType, contact);
+    }
+
+    public void addSection(SectionType sectionType, Section section) {
+        this.sections.put(sectionType, section);
+    }
+
     @Override
     public String toString() {
         return uuid + "(" + fullName + ")";
