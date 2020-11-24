@@ -12,7 +12,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -35,12 +34,7 @@ public class PathStorage extends AbstractStorage<Path> {
 
     @Override
     public void clear() {
-        getFilesList().forEach(new Consumer<Path>() {
-            @Override
-            public void accept(Path path) {
-                PathStorage.this.doDelete(path);
-            }
-        });
+        getFilesList().forEach(PathStorage.this::doDelete);
     }
 
     @Override
