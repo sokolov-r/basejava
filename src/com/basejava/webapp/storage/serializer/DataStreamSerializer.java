@@ -78,16 +78,14 @@ public class DataStreamSerializer implements SerializeStrategy {
                             List<Organization.Position> positionList = new ArrayList<>();
                             String name = dis.readUTF();
                             String link = dis.readUTF();
-                            link = link.equals("") ? null : link;
-                            Organization organization = new Organization(name, link, positionList);
+                            Organization organization = new Organization(name, link.equals("") ? null : link, positionList);
                             readCollection(dis, () -> {
                                 LocalDate startDay = LocalDate.ofEpochDay(dis.readLong());
                                 LocalDate finishDay = LocalDate.ofEpochDay(dis.readLong());
                                 String jobTitle = dis.readUTF();
                                 String jobDescription = dis.readUTF();
-                                jobDescription = jobDescription.equals("") ? null : jobDescription;
                                 positionList.add(new Organization.Position(startDay,
-                                        finishDay, jobTitle, jobDescription));
+                                        finishDay, jobTitle, jobDescription.equals("") ? null : jobDescription));
                             });
                             organizationList.add(organization);
                         });
