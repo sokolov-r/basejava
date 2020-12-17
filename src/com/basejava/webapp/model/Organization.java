@@ -1,15 +1,24 @@
 package com.basejava.webapp.model;
 
+import com.basejava.webapp.util.LocalDateAdapter;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Organization implements Serializable {
     private static final long serialVersionUID = 1L;
-    private final String name;
-    private final String link;
-    private final List<Position> positionList;
+    private String name;
+    private String link;
+    private List<Position> positionList;
+
+    public Organization() {
+    }
 
     public Organization(String name, String link, List<Position> positionList) {
         Objects.requireNonNull(name, "name must not be null");
@@ -55,12 +64,18 @@ public class Organization implements Serializable {
         return Objects.hash(name, link, positionList);
     }
 
+    @XmlAccessorType(XmlAccessType.FIELD)
     public static class Position implements Serializable {
         private static final long serialVersionUID = 1L;
-        private final LocalDate startDate;
-        private final LocalDate finishDate;
-        private final String jobTitle;
-        private final String jobDescription;
+        @XmlJavaTypeAdapter(LocalDateAdapter.class)
+        private LocalDate startDate;
+        @XmlJavaTypeAdapter(LocalDateAdapter.class)
+        private LocalDate finishDate;
+        private String jobTitle;
+        private String jobDescription;
+
+        public Position() {
+        }
 
         public Position(LocalDate startDate, LocalDate finishDate, String jobTitle, String jobDescription) {
             Objects.requireNonNull(startDate, "startDate must not be null");

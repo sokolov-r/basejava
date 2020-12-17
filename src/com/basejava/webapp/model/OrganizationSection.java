@@ -1,12 +1,18 @@
 package com.basejava.webapp.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class OrganizationSection implements Section, Serializable {
     private static final long serialVersionUID = 1L;
-    private final List<Organization> organizationList;
+    private List<Organization> organizationList;
+
+    public OrganizationSection() {
+    }
 
     public OrganizationSection(List<Organization> organizationList) {
         Objects.requireNonNull(organizationList, "organizationList must not be null");

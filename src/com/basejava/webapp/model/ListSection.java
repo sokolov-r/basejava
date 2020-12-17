@@ -1,12 +1,18 @@
 package com.basejava.webapp.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ListSection implements Section, Serializable {
     private static final long serialVersionUID = 1L;
-    private final List<String> textList;
+    private List<String> textList;
+
+    public ListSection() {
+    }
 
     public ListSection(List<String> textList) {
         Objects.requireNonNull(textList, "textList must not be null");
