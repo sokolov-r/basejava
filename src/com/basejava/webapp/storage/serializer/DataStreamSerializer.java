@@ -36,14 +36,14 @@ public class DataStreamSerializer implements SerializeStrategy {
                         writeCollection(organizationList, dos, organization -> {
                             dos.writeUTF(organization.getName());
                             String link = organization.getLink();
-                            dos.writeUTF(link == null ? "" : link);
+                            dos.writeUTF(link == null ? "null" : link);
                             List<Organization.Position> positionList = organization.getPositionList();
                             writeCollection(positionList, dos, position -> {
                                 dos.writeLong(position.getStartDate().toEpochDay());
                                 dos.writeLong(position.getFinishDate().toEpochDay());
                                 dos.writeUTF(position.getJobTitle());
                                 String jobPosition = position.getJobDescription();
-                                dos.writeUTF(jobPosition == null ? "" : jobPosition);
+                                dos.writeUTF(jobPosition == null ? "null" : jobPosition);
                             });
 
                         });
@@ -78,14 +78,14 @@ public class DataStreamSerializer implements SerializeStrategy {
                             List<Organization.Position> positionList = new ArrayList<>();
                             String name = dis.readUTF();
                             String link = dis.readUTF();
-                            Organization organization = new Organization(name, link.equals("") ? null : link, positionList);
+                            Organization organization = new Organization(name, link.equals("null") ? null : link, positionList);
                             readCollection(dis, () -> {
                                 LocalDate startDay = LocalDate.ofEpochDay(dis.readLong());
                                 LocalDate finishDay = LocalDate.ofEpochDay(dis.readLong());
                                 String jobTitle = dis.readUTF();
                                 String jobDescription = dis.readUTF();
                                 positionList.add(new Organization.Position(startDay,
-                                        finishDay, jobTitle, jobDescription.equals("") ? null : jobDescription));
+                                        finishDay, jobTitle, jobDescription.equals("null") ? null : jobDescription));
                             });
                             organizationList.add(organization);
                         });

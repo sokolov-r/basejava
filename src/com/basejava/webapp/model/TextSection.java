@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class TextSection implements Section, Serializable {
+public class TextSection extends Section implements Serializable {
     private static final long serialVersionUID = 1L;
     private String text;
 

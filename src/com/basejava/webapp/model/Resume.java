@@ -1,11 +1,8 @@
 package com.basejava.webapp.model;
 
-import com.basejava.webapp.util.XmlSectionAdapter;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.Map;
@@ -23,7 +20,6 @@ public class Resume implements Serializable {
     private String uuid;
     private String fullName;
     private final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
-    @XmlJavaTypeAdapter(XmlSectionAdapter.class)
     private final Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
 
     public Resume() {
