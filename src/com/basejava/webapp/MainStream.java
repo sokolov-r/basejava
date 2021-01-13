@@ -16,18 +16,10 @@ public class MainStream {
     }
 
     static int minValue(int[] values) {
-        final int[] result = new int[1];
-        final int[] length = {(int) Arrays.stream(values)
-                .distinct()
-                .count() - 1};
-        Arrays.stream(values)
+        return Arrays.stream(values)
                 .distinct()
                 .sorted()
-                .forEach(value -> {
-                    result[0] = result[0] + value * ((int) Math.pow(10, length[0]));
-                    length[0] = length[0] - 1;
-                });
-        return result[0];
+                .reduce(0, (left, right) -> left * 10 + right);
     }
 
     static List<Integer> oddOrEven(List<Integer> integers) {
