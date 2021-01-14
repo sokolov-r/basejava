@@ -10,7 +10,7 @@ public class MainStream {
         int[] values = {3, 5, 1, 4, 2, 3, 5};
         System.out.println(minValue(values));
 
-        List<Integer> integers = Arrays.asList(1, 2, 3, 4);
+        List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5);
         System.out.println(oddOrEven(integers));
     }
 
@@ -26,13 +26,7 @@ public class MainStream {
                 .reduce(0, Integer::sum);
 
         return integers.stream()
-                .filter(integer -> {
-                    if (sum % 2 == 0) {
-                        return (integer % 2 != 0);
-                    } else {
-                        return integer % 2 == 0;
-                    }
-                })
+                .filter(integer -> sum % 2 != integer % 2)
                 .collect(Collectors.toList());
     }
 }
