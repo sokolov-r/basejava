@@ -57,7 +57,7 @@ public abstract class AbstractStorageTest {
     }
 
     @Test(expected = ExistStorageException.class)
-    public void shouldThrowExistStorageExceptionWhenResumeExistWhileSave() {
+    public void saveExist() {
         storage.save(ResumeTestData.createResume(UUID_1, NONAME));
     }
 
@@ -67,7 +67,7 @@ public abstract class AbstractStorageTest {
     }
 
     @Test(expected = NotExistStorageException.class)
-    public void shouldThrowNotExistStorageExceptionWhenResumeNotExistWhileGet() {
+    public void getNotExist() {
         storage.get("0");
     }
 
@@ -79,7 +79,7 @@ public abstract class AbstractStorageTest {
     }
 
     @Test(expected = NotExistStorageException.class)
-    public void shouldThrowNotExistStorageExceptionWhenResumeNotExistWhileUpdate() {
+    public void updateNotExist() {
         storage.update(RESUME_4);
     }
 
@@ -91,7 +91,7 @@ public abstract class AbstractStorageTest {
     }
 
     @Test(expected = NotExistStorageException.class)
-    public void shouldThrowNotExistStorageExceptionWhenResumeNotExistWhileDelete() {
+    public void deleteNotExist() {
         storage.delete("6");
     }
 

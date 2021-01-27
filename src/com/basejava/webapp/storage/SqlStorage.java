@@ -7,12 +7,10 @@ import com.basejava.webapp.sql.SqlHelper;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class SqlStorage implements Storage {
     public final SqlHelper sqlHelper;
-    private static final Comparator<Resume> RESUME_FULLNAME_COMPARATOR = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
 
     public SqlStorage(String dbUrl, String dbUser, String dbPassword) {
         sqlHelper = new SqlHelper(() -> DriverManager.getConnection(dbUrl, dbUser, dbPassword));
@@ -38,7 +36,7 @@ public class SqlStorage implements Storage {
 
     @Override
     public void update(Resume resume) {
-        sqlHelper.transactionExecute("UPDATE resume SET full_name =? WHERE uuid =?", ps -> {
+        sqlHelper.transactionExecute("UPDATE resume SET full_name = ? WHERE uuid = ?", ps -> {
             ps.setString(1, resume.getFullName());
             ps.setString(2, resume.getUuid());
             if (ps.executeUpdate() == 0) {
@@ -50,7 +48,7 @@ public class SqlStorage implements Storage {
 
     @Override
     public Resume get(String uuid) {
-        return sqlHelper.transactionExecute("SELECT * FROM resume r WHERE r.uuid =?", ps -> {
+        return sqlHelper.transactionExecute("SELECT * FROM resume r WHERE r.uuid = ?", ps -> {
             ps.setString(1, uuid);
             ResultSet rs = ps.executeQuery();
             if (!rs.next()) {
@@ -62,7 +60,7 @@ public class SqlStorage implements Storage {
 
     @Override
     public void delete(String uuid) {
-        sqlHelper.transactionExecute("DELETE FROM resume WHERE uuid =?", ps -> {
+        sqlHelper.transactionExecute("DELETE FROM resume WHERE uuid = ?", ps -> {
             ps.setString(1, uuid);
             if (ps.executeUpdate() == 0) {
                 throw new NotExistStorageException(uuid);
@@ -71,17 +69,15 @@ public class SqlStorage implements Storage {
         });
     }
 
-
     @Override
     public List<Resume> getAllSorted() {
-        return sqlHelper.transactionExecute("SELECT * FROM resume", ps -> {
+        return sqlHelper.transactionExecute("SELECT * FROM resume ORDER BY full_name, uuid", ps -> {
             ResultSet rs = ps.executeQuery();
-            List<Resume> list = new ArrayList<>();
+            List<Resume> resumes = new ArrayList<>();
             while (rs.next()) {
-                list.add(new Resume(rs.getString("uuid").trim(), rs.getString("full_name")));
+                resumes.add(new Resume(rs.getString("uuid").trim(), rs.getString("full_name")));
             }
-            list.sort(RESUME_FULLNAME_COMPARATOR);
-            return list;
+            return resumes;
         });
     }
 

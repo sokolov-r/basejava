@@ -9,7 +9,8 @@ import java.util.List;
 
 public abstract class AbstractStorage<SK> implements Storage {
 
-    private static final Comparator<Resume> RESUME_FULLNAME_COMPARATOR = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
+    private static final Comparator<Resume> RESUME_FULLNAME_COMPARATOR = Comparator.comparing(Resume::getFullName)
+            .thenComparing(Resume::getUuid);
 
     protected abstract boolean isExist(SK searchKey);
 
