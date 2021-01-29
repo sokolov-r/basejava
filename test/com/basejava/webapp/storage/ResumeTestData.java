@@ -4,6 +4,8 @@ import com.basejava.webapp.model.ContactType;
 import com.basejava.webapp.model.Resume;
 import com.basejava.webapp.model.SectionType;
 
+import java.util.Map;
+
 /**
  * Test for your com.basejava.webapp.storage.ArrayStorage implementation
  */
@@ -12,14 +14,14 @@ public class ResumeTestData {
 
     public static Resume createResume(String uuid, String fullName) {
         Resume resume = new Resume(uuid, fullName);
-//        Map<ContactType, String> contacts = resume.getContacts();
-//        contacts.put(ContactType.PHONE, "+7(921) 855-0482");
-//        contacts.put(ContactType.SKYPE, "grigory.kislin");
-//        contacts.put(ContactType.MAIL, "gkislin@yandex.ru");
-//        contacts.put(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
-//        contacts.put(ContactType.GITHUB, "https://github.com/gkislin");
-//        contacts.put(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473");
-//        contacts.put(ContactType.HOMEPAGE, "http://gkislin.ru/");
+        Map<ContactType, String> contacts = resume.getContacts();
+        contacts.put(ContactType.PHONE, "+7(921) 855-0482");
+        contacts.put(ContactType.SKYPE, "grigory.kislin");
+        contacts.put(ContactType.MAIL, "gkislin@yandex.ru");
+        contacts.put(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
+        contacts.put(ContactType.GITHUB, "https://github.com/gkislin");
+        contacts.put(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473");
+        contacts.put(ContactType.HOMEPAGE, "http://gkislin.ru/");
 //
 //        ListSection achievement = new ListSection(new ArrayList<>(Arrays.asList(
 //                "С 2013 года: разработка проектов \"Разработка Web приложения\",\"Java Enterprise\", \n" +
