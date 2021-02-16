@@ -2,8 +2,9 @@ package com.basejava.webapp.web;
 
 import com.basejava.webapp.Config;
 import com.basejava.webapp.model.Resume;
-import com.basejava.webapp.storage.SqlStorage;
+import com.basejava.webapp.storage.Storage;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +13,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class ResumeServlet extends HttpServlet {
-    SqlStorage storage = (SqlStorage) Config.get().getStorage();
+
+    private Storage storage;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        storage = Config.get().getStorage();
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
